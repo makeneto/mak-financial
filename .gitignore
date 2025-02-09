@@ -1,0 +1,15 @@
+# Ignorar a pasta de build do Next.js
+.next
+
+# Ignorar dependências instaladas
+node_modules
+
+# Ignorar variáveis de ambiente sensíveis
+.env
+.env.local
+.env.development.local
+.env.production.local
+
+# Ignorar arquivos do sistema
+.DS_Store
+Thumbs.db
