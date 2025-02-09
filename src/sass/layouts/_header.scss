@@ -1,0 +1,12 @@
+.header__main {
+    & h1 {
+        font-weight: 500;
+        font-size: 1.5rem;
+        margin-bottom: 0.2rem;
+    }
+
+    & p {
+        color: $text-gray;
+        font-size: 0.9rem;
+    }
+}
