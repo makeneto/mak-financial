@@ -1,0 +1,60 @@
+.inputContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#inputField {
+    border: 2px solid white;
+    background-color: transparent;
+    border-radius: 10px;
+    padding: 12px 15px;
+    color: #152126;
+    font-weight: 500;
+    outline: none;
+    caret-color: #152126;
+    transition-duration: .3s;
+    font-family: inherit;
+}
+
+.userIcon {
+    position: absolute;
+    fill: #152126;
+    width: 12px;
+    top: -23px;
+    left: -15px;
+    opacity: 0;
+    transition: .2s linear;
+}
+
+.usernameLabel {
+    position: absolute;
+    top: -25px;
+    left: 5px;
+    color: #152126;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: inherit;
+    overflow: hidden;
+    transition: .2s linear;
+    opacity: 0;
+}
+
+#inputField:focus~.usernameLabel,
+#inputField:valid~.usernameLabel {
+    transform: translateX(20px);
+    opacity: 1;
+}
+
+#inputField:focus~.userIcon,
+#inputField:valid~.userIcon {
+    transform: translateX(20px);
+    opacity: 1;
+}
+
+#inputField:focus,
+#inputField:valid {
+    background-color: #ddd;
+    transition-duration: .3s;
+}
