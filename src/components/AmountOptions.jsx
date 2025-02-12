@@ -111,32 +111,54 @@ const Error = styled.span`
 `
 
 export default function AmountOptions() {
-    const { balance, setBalance, setTransactions } = useAppContext()
+    const { balance, setBalance, setTransactions, selectCurrency } = useAppContext()
     const [income, setIncome] = useState("")
     const [expense, setExpense] = useState("")
     const [spanInput, setSpanInput] = useState("")
+
+    let currencySign = ""
+
+    if (selectCurrency === "AOA") {
+        currencySign = "AOA"
+    }
+    else if (selectCurrency === "CAD") {
+        currencySign = "CA$"
+    }
+    else if (selectCurrency === "EUR") {
+        currencySign = "€"
+    }
+    else if (selectCurrency === "GBP") {
+        currencySign = "£"
+    }
+    else if (selectCurrency === "BRL") {
+        currencySign = "R$"
+    }
+    else if (selectCurrency === "USD") {
+        currencySign = "$"
+    }
 
     // 1 Passo
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors },
     } = useForm()
 
     const handleChangeIncome = (e) => {
         let newValue = e.target.value.replace(/[^0-9]/g, "")
-        setIncome(newValue ? `$${newValue}` : "")
+        setIncome(newValue ? `${currencySign} ${newValue}` : "")
     }
 
     const handleChangeExpense = (e) => {
         let newValue = e.target.value.replace(/[^0-9]/g, "")
-        setExpense(newValue ? `$${newValue}` : "")
+        setExpense(newValue ? `${currencySign} ${newValue}` : "")
     }
 
     // 2 Passo
     function onSubmit(data) {
-        const incomeValue = income ? parseFloat(income.replace("$", "")) : 0
-        const expenseValue = expense ? parseFloat(expense.replace("$", "")) : 0
+        const incomeValue = income ? parseFloat(income.replace(currencySign, "")) : 0
+        const expenseValue = expense ? parseFloat(expense.replace(currencySign, "")) : 0
 
         if (expenseValue > balance) {
             toast.error("Operation Denied")
@@ -160,6 +182,7 @@ export default function AmountOptions() {
 
         setIncome("")
         setExpense("")
+        reset()
     }
 
     useEffect(() => {
@@ -219,6 +242,7 @@ export default function AmountOptions() {
                                     type="text"
                                     id="description"
                                     placeholder="Write something..."
+                                    autoComplete="none"
                                     // 3 Passo
                                     {...register("text", { required: "This field is required" })}
                                 />
