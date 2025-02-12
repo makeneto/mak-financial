@@ -111,7 +111,7 @@ export default function Card() {
         currencySign = "R$"
     }
     else if (selectCurrency === "USD") {
-        currencySign = "$"
+        currencySign = "US$"
     }
 
     const [cardNumber, setCardNumber] = useState(() => {
