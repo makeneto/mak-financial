@@ -6,14 +6,15 @@ import { useAppContext } from "../../context/AppContext"
 import { tickFormatter } from "../../helpers/utils"
 
 const CardStyled = styled.div`
-    margin-top: 1.5rem;
+    max-width: 23rem;
+    margin: 1.5rem auto 0;
     display: grid;
-    gap: 1.6rem;
-    background-image: repeating-radial-gradient(  #0c0a0a 80%,#2f312f 90%,#3f4549 90%);
+    gap: 1.8rem;
+    background-image: repeating-radial-gradient(#0c0a0a 80%, #2f312f 90%, #3f4549 90%);
     background-size: 65px 65px;
     padding: 1.2rem 1.7rem;
     border-radius: 1.6rem;
-    box-shadow: 0 0 16px #00000045;;
+    box-shadow: 0 0 16px #00000045;
 `
 
 const FirstPart = styled.div`
