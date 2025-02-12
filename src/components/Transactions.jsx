@@ -18,7 +18,7 @@ const TransactionSide = styled.div`
     max-height: 40dvh;
     overflow-y: scroll;
     scrollbar-width: none;
-    box-shadow: 0 0 20px rgb(0 0 0 / 4%);
+    box-shadow: 0 0 38px rgb(0 0 0 / 13%);
     border-radius: 0.9rem;
     padding: 1.3rem 1.5rem;
     margin-bottom: 2rem;
