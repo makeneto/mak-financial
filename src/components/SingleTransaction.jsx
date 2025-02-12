@@ -1,7 +1,7 @@
-"use client"
-import { formatCurrency } from "@/src/helpers/utils"
 import { HiOutlineTrendingDown, HiOutlineTrendingUp } from "react-icons/hi"
 import styled from "styled-components"
+
+import formatCurrency from "../helpers/utils"
 
 const TransactionContent = styled.ul`
     display: grid;  
@@ -42,6 +42,8 @@ const Transaction = styled.ul`
 
 export default function SingleTransaction({ transObj }) {
     const { type, description, date, amount } = transObj
+    const currency = localStorage.getItem("currency")
+
     return (
         <>
             <Transaction>
@@ -55,7 +57,7 @@ export default function SingleTransaction({ transObj }) {
                         <p>{date}</p>
                     </TransactionContent>
                 </div>
-                <h1><span>{type === 'income' ? '+' : '-'}</span>{formatCurrency(amount)}</h1>
+                <h1><span>{type === 'income' ? '+' : '-'}</span>{formatCurrency(amount, currency)}</h1>
             </Transaction>
         </>
     )

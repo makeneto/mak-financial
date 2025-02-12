@@ -1,13 +1,12 @@
-"use client"
 import { useState, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
 import styled from "styled-components"
-import { HiOutlineTrendingDown, HiOutlineTrendingUp, HiOutlineAnnotation } from "react-icons/hi"
+import { HiOutlineTrendingDown, HiOutlineTrendingUp } from "react-icons/hi"
 import moment from "moment"
 
-import { Input } from "./Card"
-import { useAppContext } from "@/src/context/AppContext"
+import { Input } from "./ui/Card"
+import { useAppContext } from "../context/AppContext"
 
 const Form = styled.form`
     display: grid;
@@ -112,7 +111,7 @@ const Error = styled.span`
 `
 
 export default function AmountOptions() {
-    const { balance, setBalance, setTransactions, changeAmount } = useAppContext()
+    const { balance, setBalance, setTransactions } = useAppContext()
     const [income, setIncome] = useState("")
     const [expense, setExpense] = useState("")
     const [spanInput, setSpanInput] = useState("")

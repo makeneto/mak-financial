@@ -1,5 +1,4 @@
-import styled from "styled-components";
-import DashboardBox from "./DashboardBox";
+import styled from "styled-components"
 import {
     Area,
     AreaChart,
@@ -8,45 +7,64 @@ import {
     Tooltip,
     XAxis,
     YAxis,
-} from "recharts";
-import { format } from "date-fns";
-import { useAppContext } from "@/src/context/AppContext";
-import Transactions from "./Transactions";
-import SingleTransaction from "./SingleTransaction";
+} from "recharts"
+import { format } from "date-fns"
+
+import { useAppContext } from "../../context/AppContext"
+import DashboardBox from "./DashboardBox"
+import Transactions from "../Transactions"
 
 const StyledSalesChart = styled(DashboardBox)`
     grid-column: 1 / -1;
 
     & .recharts-cartesian-grid-horizontal line,
     & .recharts-cartesian-grid-vertical line {
-        stroke: var(--color-grey-300);
+        stroke: var(--color-grey-300)
     }
 
     & h5 {
         font-size: 1rem;
         font-weight: 600;
     }
-`;
+`
 
 function SalesChart() {
-    const { transactions } = useAppContext();
+    const { transactions, selectCurrency } = useAppContext()
+    let currencySign = ""
 
-    // Inicializar os valores para cada mês
+    if (selectCurrency === "AOA") {
+        currencySign = "AOA"
+    }
+    else if (selectCurrency === "CAD") {
+        currencySign = "CA$"
+    }
+    else if (selectCurrency === "EUR") {
+        currencySign = "€"
+    }
+    else if (selectCurrency === "GBP") {
+        currencySign = "£"
+    }
+    else if (selectCurrency === "BRL") {
+        currencySign = "R$"
+    }
+    else if (selectCurrency === "USD") {
+        currencySign = "$"
+    }
+
     const monthlyData = Array.from({ length: 12 }, (_, i) => ({
         label: format(new Date(2025, i, 1), "MMM"),
         totalIncome: 0,
         totalExpenditure: 0,
-    }));
+    }))
 
-    // Processar as transações e somar os valores correspondentes a cada mês
     Object.values(transactions).forEach(({ type, date, amount }) => {
-        const monthIndex = new Date(date).getMonth();
+        const monthIndex = new Date(date).getMonth()
         if (type === "income") {
-            monthlyData[monthIndex].totalIncome += amount;
+            monthlyData[monthIndex].totalIncome += amount
         } else if (type === "expense") {
-            monthlyData[monthIndex].totalExpenditure += amount;
+            monthlyData[monthIndex].totalExpenditure += amount
         }
-    });
+    })
 
     const colors = {
         totalIncome: { stroke: "#4f46e5", fill: "#c7d2fe" },
@@ -54,7 +72,7 @@ function SalesChart() {
         text: "#374151",
         background: "#fff",
         grid: "#e5e7eb"
-    };
+    }
 
     return (
         <StyledSalesChart>
@@ -62,13 +80,20 @@ function SalesChart() {
 
             <ResponsiveContainer height={300} width="100%">
                 <AreaChart data={monthlyData}>
-                    <XAxis
-                        dataKey="label"
+                    <YAxis
+                        tickFormatter={(value) => {
+                            if (value >= 1000000) {
+                                return `${(value / 1000000).toFixed(1)}M ${currencySign}`
+                            } else if (value >= 1000) {
+                                return `${(value / 1000).toFixed(1)}k ${currencySign}`
+                            }
+                            return `${value} ${currencySign}`
+                        }}
                         tick={{ fill: colors.text }}
                         tickLine={{ stroke: colors.text }}
                     />
-                    <YAxis
-                        unit="$"
+                    <XAxis
+                        dataKey="label"
                         tick={{ fill: colors.text }}
                         tickLine={{ stroke: colors.text }}
                     />
@@ -81,7 +106,8 @@ function SalesChart() {
                         fill={colors.totalIncome.fill}
                         strokeWidth={2}
                         name="Total Income"
-                        unit="$"
+                        unit={` ${currencySign}`}
+                        tickFormatter={(value) => new Intl.NumberFormat('pt-PT', { style: 'currency', currency: currencySign }).format(value)}
                     />
                     <Area
                         dataKey="totalExpenditure"
@@ -90,12 +116,14 @@ function SalesChart() {
                         fill={colors.totalExpenditure.fill}
                         strokeWidth={2}
                         name="Expenditure"
-                        unit="$"
+                        unit={` ${currencySign}`}
+                        tickFormatter={(value) => new Intl.NumberFormat('pt-PT', { style: 'currency', currency: currencySign }).format(value)}
                     />
                 </AreaChart>
             </ResponsiveContainer>
+            <Transactions>Latest transactions</Transactions>
         </StyledSalesChart>
-    );
+    )
 }
 
-export default SalesChart;
+export default SalesChart

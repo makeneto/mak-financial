@@ -1,17 +1,16 @@
-"use client"
 import { useState, useEffect } from "react"
-import styled from "styled-components"
-import { useAppContext } from "@/src/context/AppContext"
 import { HiOutlineCreditCard } from "react-icons/hi"
+import styled from "styled-components"
 
-import Image from "next/image"
-import { formatCurrency } from "@/src/helpers/utils"
+import { useAppContext } from "../../context/AppContext"
+import formatCurrency from "../../helpers/utils"
 
 const CardStyled = styled.div`
     margin-top: 1.5rem;
     display: grid;
     gap: 1.6rem;
-    background-color: #152126;
+    background-image: repeating-radial-gradient(  #0c0a0a 80%,#2f312f 90%,#3f4549 90%);
+    background-size: 65px 65px;
     padding: 1.2rem 1.7rem;
     border-radius: 1.6rem;
     box-shadow: 0 0 16px #00000045;;
@@ -93,6 +92,7 @@ const ThirdPart = styled.div`
 
 export default function Card() {
     const { balance, changeAmount, setChangeAmount } = useAppContext()
+    const currency = localStorage.getItem("currency")
 
     const [cardNumber, setCardNumber] = useState(() => {
         return localStorage.getItem('cardNumber') || ''
@@ -135,7 +135,7 @@ export default function Card() {
         <CardStyled>
             <FirstPart>
                 <HiOutlineCreditCard />
-                <Image
+                <img
                     src='/visa-logo.png'
                     alt='Visa Logo'
                     width={60}
@@ -157,7 +157,7 @@ export default function Card() {
                 <span>Current Balance</span>
                 <div>
                     <h1 onClick={handleChangeAmount}>
-                        {formatCurrency(balance)}
+                        {formatCurrency(balance, currency)}
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M15.042 21.672 13.684 16.6m0 0-2.51 2.225.569-9.47 5.227 7.917-3.286-.672ZM12 2.25V4.5m5.834.166-1.591 1.591M20.25 10.5H18M7.757 14.743l-1.59 1.59M6 10.5H3.75m4.007-4.243-1.59-1.59" />
                         </svg>

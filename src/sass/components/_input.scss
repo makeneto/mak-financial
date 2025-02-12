@@ -7,7 +7,7 @@
 
 #inputField {
     border: 2px solid white;
-    background-color: transparent;
+    background-color: #cc2323;
     border-radius: 10px;
     padding: 12px 15px;
     color: #152126;
@@ -16,16 +16,45 @@
     caret-color: #152126;
     transition-duration: .3s;
     font-family: inherit;
+
+    &:focus~.usernameLabel,
+    &:valid~.usernameLabel {
+        transform: translateX(20px);
+        opacity: 1;
+    }
+
+    &:focus~.userIcon,
+    &:focus~.userOther,
+    &:valid~.userIcon,
+    &:valid~.userOther {
+        transform: translateX(20px);
+        opacity: 1;
+    }
+
+    &:focus,
+    &:valid {
+        background-color: #eeeeee;
+        transition-duration: .3s;
+    }
 }
 
-.userIcon {
+.userIcon,
+.userOther {
     position: absolute;
-    fill: #152126;
-    width: 12px;
     top: -23px;
     left: -15px;
     opacity: 0;
     transition: .2s linear;
+}
+
+.userIcon {
+    width: 12px;
+    fill: #152126;
+}
+
+.userOther {
+    width: 16px;
+    stroke: #152126;
 }
 
 .usernameLabel {
@@ -38,23 +67,5 @@
     font-family: inherit;
     overflow: hidden;
     transition: .2s linear;
-    opacity: 0;
-}
-
-#inputField:focus~.usernameLabel,
-#inputField:valid~.usernameLabel {
-    transform: translateX(20px);
     opacity: 1;
-}
-
-#inputField:focus~.userIcon,
-#inputField:valid~.userIcon {
-    transform: translateX(20px);
-    opacity: 1;
-}
-
-#inputField:focus,
-#inputField:valid {
-    background-color: #ddd;
-    transition-duration: .3s;
 }

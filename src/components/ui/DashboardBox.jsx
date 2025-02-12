@@ -9,7 +9,7 @@ const DashboardBox = styled.div`
   height: 100dvh;
   display: flex;
   flex-direction: column;
-  gap: 2.4rem;
+  gap: 2rem;
 `;
 
 export default DashboardBox;

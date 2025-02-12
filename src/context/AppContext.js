@@ -1,4 +1,3 @@
-"use client"
 import { createContext, useContext, useState, useEffect } from "react"
 
 const AppContext = createContext()
@@ -42,12 +41,21 @@ export function AppProvider({ children }) {
 
     const [changeAmount, setChangeAmount] = useState(false)
 
+    const [selectCurrency, setSelectCurrency] = useState(() => {
+        return localStorage.getItem("currency") || "USD"
+    })
+
+    useEffect(() => {
+        localStorage.setItem("currency", selectCurrency)
+    }, [selectCurrency])
+
     return (
         <AppContext.Provider value={{
             balance, setBalance,
             transactions, setTransactions,
             totalIncome, totalExpenditure,
-            changeAmount, setChangeAmount
+            changeAmount, setChangeAmount,
+            selectCurrency, setSelectCurrency,
         }}>
             {children}
         </AppContext.Provider>
