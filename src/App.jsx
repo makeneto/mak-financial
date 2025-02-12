@@ -8,6 +8,7 @@ import NotMobile from "./components/NotMobile"
 const Home = lazy(() => import('./pages/Home'))
 const Account = lazy(() => import('./pages/Account'))
 const Statistics = lazy(() => import('./pages/Statistics'))
+const Loader = lazy(() => import('./components/ui/Loading'))
 
 export default function App() {
   const [isMobile, setIsMobile] = useState(false)
@@ -31,6 +32,7 @@ export default function App() {
             <Route index element={<Home />} />
             <Route path="account" element={<Account />} />
             <Route path="dashboard" element={<Statistics />} />
+            <Route path="loading" element={<Loader />} />
           </Routes>
         ) : (
           <NotMobile />
